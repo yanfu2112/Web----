@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="./icon.png">
+  <title>记忆走廊-诗人晏玞的个人博客</title>
+  <style>
+  /**************************************************************准备工作*****************************************************************************/
+  /*毛玻璃化盒子*/
+  .box-glasscard{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  /*设置背景图片*/
+  body{
+    background-image: url(./backgroundimg.jpg);
+    background-size: cover;/*可以设置像素*/
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
+    background-color: rgba(137, 43, 226, 0.353);
+    }
+
+    /*************************************************************超链接设置**************************************************************************/
+    /*取消所有超链接字体的下划线*/
+    a{
+      text-decoration: none;
+    }
+    /*设置超链接字体状态，link为未访问的链接，visited为已访问的链接，hover为鼠标悬停时的链接，active为正在被点击的链接*/
+    a, a:link,a:visited, a:active {
+      -webkit-text-stroke: 0.01px #000000; /* 宽度和颜色 */
+      color: transparent; /* 文字内部透明，只显示边框 */
+      color: #ffffff; /*设置该状态下字体的颜色*/
+    }
+
+    a, a:hover{
+      color: blueviolet;
+    }
+
+    /*************************************************************杂项（用来弥补bug）**************************************************************************/
+    /*空盒子，用来占位*/
+    .void{
+      width: 1px;
+    }
+
+    /**************************************************************第一行*****************************************************************************/
+    /*设置第一行布局的选择器，其子选择器为logo，date*/
+    .header{
+      display: flex;/*灵活摆放这一选择器内的成员，用于logo和date两个盒子显示在同一行*/
+      justify-content: space-between;/*设置这一行的两个盒子，分别左右两边对齐*/
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1;
+    }
+
+    /*设置logo选择器*/
+    .logo{
+      background-color: rgba(177, 151, 233, 0.6);
+      border-radius: 10px;
+      width: 320px;/*设置盒子宽度*/
+      height: 55px;
+      font-size: 17px;/*设置盒子内字体大小*/
+      padding-top: 0;
+      padding-left: 5px;
+    }
+
+    /*设置日期栏选择器，其子选择器为date-week,greeting*/
+    .date {
+
+      width: 1175px;/*设置盒子宽度*/
+      height: 55px;
+      padding: 0 0;/*设置盒子内边距*/
+      text-align: left;/*设置盒子内文字靠左（内边距第二个值为0才能靠最左）*/
+    }
+
+    /*设置日期选择器*/
+    .date-week{
+      font-size: 20px;/*设置盒子内字体大小*/
+    }
+
+    /*设置日期下一行的问候语选择器*/
+    .greeting{
+      font-size:18px;/*设置盒子内字体大小*/
+    }
+   
+    /**************************************************************第二行*****************************************************************************/
+    /*设置第二行的布局（分类列表和消息）选择器，其子选择器为sortlist,message*/
+    .sortlist-message{
+      display: flex;/*灵活摆放这一选择器内的成员，用于memberlist和message两个盒子显示在同一行*/
+      justify-content: space-between;/*设置这一行的两个盒子，分别左右两边对齐*/
+    }
+
+    /*设置分类列表选择器*/
+    .sortlist{
+      /* background-color: rgba(229, 229, 235,0.4);设置盒子背景颜色 */
+      width: 310px;/*设置盒子宽度*/
+      height: 700px;/*设置盒子高度*/
+      position: fixed;
+      left: 0;
+
+      /*为子选择器的位置服务*/
+      padding-top: 15px;/*设置sortlist盒子的上内边距*/
+      display: flex;/*灵活摆放*/
+      flex-direction: column;
+      justify-content: 20px;
+      align-items: center;
+      z-index: 1;
+    }
+
+
+    /*设置消息选择器*/
+    .message{
+      /* background-color: rgba(191, 191, 239,0.7);设置盒子背景颜色 */
+      width: 1175px;/*设置盒子宽度*/
+      border-radius: 10px;
+    }
+
+    .message_glasscard_show{
+      width: 1175px;
+      height: 550px;
+      border-radius: 10px; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sortlist_member{
+      background-color: rgba(177, 151, 233, 0.6);
+      width: 220px;
+      height: 30px;
+      border-radius: 10px;
+      color: rgb(255, 255, 255);
+      padding-top: 6px;
+      text-align: center;
+      font-size: 20px;
+
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+
+    .sortlist_member:hover{
+      transform: scale(1.1);
+    }
+
+    .sortlist_member_visited{
+      background-color: rgb(140, 53, 220);
+      width: 220px;
+      height: 30px;
+      border-radius: 10px;
+      color: rgb(255, 255, 255);
+      padding-top: 6px;
+      text-align: center;
+    }
+
+    /**************************************************************页脚*****************************************************************************/
+
+    .end{
+      /* background-color: rgba(255, 255, 255,0.5); */
+      border-radius: 10px;
+    }
+
+    .end_glasscard-show{
+      background-color: rgba(177, 151, 233, 0.5);
+      width: 1393px;
+      /* height: 160px; */
+      padding-left: 120px;
+      padding-top: 20px;
+      border-radius: 10px; 
+    }
+
+    .final{
+      color: aliceblue;
+      font-size: 15px;
+    }
+
+    /**************************************************************博客内容布局（设置message的子选择器）*****************************************************************************/
+
+    .text_title{
+      background-color: rgba(177, 151, 233, 0.6);
+      width: 120px;
+      border-radius: 7px;
+      color: rgb(0, 0, 0);
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .text{
+      background-color: #ffffff92;
+      width: 1160px;
+      height: 100px;
+      color: rgb(0, 0, 0);
+      font-size: 20px;
+      text-align: center;   
+    }
+
+    .animation{
+      background-color: blueviolet;
+      width: 130px;
+      height: 40px;
+      padding-top: 10px;
+      border-radius: 15px;
+      color: aliceblue;
+      text-align: center;
+      font-size: 20px;
+
+      transform: scale(1);
+      transition: transform 0.25s ease;
+    }
+
+    .animation:hover{
+      transform: scale(1.1);
+      background-color: rgba(177, 151, 233, 0.6);
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- ********************************************************第一行*************************************************************************** -->
+  <div class="header">
+    <div class="box-glasscard">
+    <div class="logo">
+      <br>
+      <img src="./logo.png" width="80px"  title="记忆走廊-诗人晏玞的个人博客">
+      &ensp;&ensp;&ensp;<a href="../index.html">首页</a>
+      &ensp;&ensp;<a href="./留言页面.html">留言</a>
+      &ensp;&ensp;<a href="./联系开发者页面.html">联系开发者</a>
+    </div></div>
+    <div class="date" >
+      <div class="box-glasscard">
+        <div class="date-week"><b>2025年5月25日 星期日</b></div>
+        <div class="greeting">你在桥上看风景，看风景的人在楼上看你。</div>
+      </div>
+    </div> 
+  </div>
+  <!-- ********************************************************第二行*************************************************************************** -->
+  <br><br><br><br>
+  <div class="sortlist-message">
+    <div class="sortlist">
+      <div class="box-glasscard">
+        <div class="sortlist_member"><a href="./漫游山城.html">漫游山城</a></div>
+        <br>
+        <div class="sortlist_member"><a href="./兰花湖月.html">兰花湖月</a></div>
+        <br>
+        <div class="sortlist_member"><a href="./旅行足迹.html">旅行足迹</a></div>
+        <br>
+        <div class="sortlist_member_visited"><a href="./三辅锁钥.html">三辅锁钥</a></div>
+        <br>
+        <div class="sortlist_member"><a href="./收藏.html">收藏</a></div>
+      </div>
+    </div>
+    <div class="void"></div>
+    <div class="message">
+      <div class="box-glasscard">
+        <div class="message_glasscard_show">
+        <!-- 以下为博客内容正文部分（首页：正文毛玻璃区域显示个人信息、网站介绍等；其他页面按照分类内容写） -->
+         <!-- 模板如下 -->
+         <!-- <br><div>5/25&ensp;15:59</div> -->
+         <!-- <div class="text"><b>叮咚！竣工通知</b><br><br>我发布了一篇博客,快来看看吧！</div> -->
+         <!-- <a href="./202505251559漫游山城博客详情页.html">阅读全文>></a> -->
+        <!-- 这里为正文部分编辑结束线 -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="end"><div class="box-glasscard"><div class="end_glasscard-show">
+  <img src="./logo.png" width=" 180px">
+  <div class="final">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
+                    © 诗人晏玞 保留所有权利 记忆走廊-记录生活的美好瞬间 侵权必究
+  </div>
+  <br>
+  </div></div></div>
+</body>
+</html>
